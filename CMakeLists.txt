@@ -122,11 +122,7 @@ target_include_directories(studio
 )
 target_link_libraries(studio PRIVATE engine)
 set_property(TARGET studio PROPERTY OUTPUT_NAME 3dmovie)
-if (MSVC)
-  # NOTE(bjrkk): this enforces registry compatibility shims on Windows,
-  # thus letting the game actually read its own registry keys in HKEY_LOCAL_MACHINE.
-  target_link_options(studio BEFORE PRIVATE /MANIFESTUAC:NO)
-endif ()
+target_link_options(studio BEFORE PRIVATE $<$<LINK_LANG__ID:CXX,MSVC>:/MANIFESTUAC:NO>)
 
 install(TARGETS studio RUNTIME DESTINATION .)
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/cd9/"
