@@ -25,6 +25,10 @@
       "displayName": "MSVC x86 Release",
       "name": "x86:msvc:release",
       "inherits": "msvc:base",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -33,6 +37,10 @@
       "displayName": "MSVC x86 Debug",
       "name": "x86:msvc:debug",
       "inherits": "msvc:base",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
