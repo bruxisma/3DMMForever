@@ -3,7 +3,7 @@ project(3DMMForever LANGUAGES CXX C)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(AudioMan REQUIRED)
@@ -122,7 +122,11 @@ target_include_directories(studio
 )
 target_link_libraries(studio PRIVATE engine)
 set_property(TARGET studio PROPERTY OUTPUT_NAME 3dmovie)
-target_link_options(studio BEFORE PRIVATE $<$<LINK_LANG__ID:CXX,MSVC>:/MANIFESTUAC:NO>)
+target_link_options(studio BEFORE PRIVATE $<$<LINK_LANG_AND_ID:CXX,MSVC>:/MANIFESTUAC:NO>)
+target_link_options(studio
+  BEFORE PRIVATE
+    $<$<AND:$<LINK_LANG_AND_ID:CXX,MSVC>,$<CONFIG:DEBUG>>:/NODEFAULTLIB:libcmt.lib>)
+
 
 install(TARGETS studio RUNTIME DESTINATION .)
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/cd9/"
