@@ -679,7 +679,7 @@ void MSND::Play(long objID, bool fLoop, bool fQueue, long vlm,
 	long cactRepeat;
 	long sqn; // sound queue
 	long scl; // sound class
-	long sii;
+	long sii{};
 
 	static long _siiLastMidi;
 	static CTG _ctgLastMidi;
