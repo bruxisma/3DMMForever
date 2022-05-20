@@ -27,6 +27,10 @@ endif()
 
 # Local Tooling
 
+add_compile_definitions(
+  $<$<PLATFORM_ID:Windows>:WIN>
+  $<$<PLATFORM_ID:Windows>:IN_80386>)
+
 add_executable(kcdc-386 EXCLUDE_FROM_ALL)
 target_sources(kcdc-386 PRIVATE "${PROJECT_SOURCE_DIR}/kauai/src/kcdc_386.c")
 target_include_directories(kcdc-386 PRIVATE $<TARGET_PROPERTY:kauai,INCLUDE_DIRECTORIES>)
@@ -86,9 +90,7 @@ target_sources(kauai
 
 target_compile_definitions(kauai PUBLIC
   _LPCVOID_DEFINED
-  STRICT
-  $<$<PLATFORM_ID:Windows>:IN_80386>
-  $<$<PLATFORM_ID:Windows>:WIN>)
+  STRICT)
 
 target_link_libraries(kauai
   PUBLIC
@@ -129,7 +131,14 @@ target_include_directories(studio
   PUBLIC $<TARGET_PROPERTY:engine,INCLUDE_DIRECTORIES>
   "${PROJECT_SOURCE_DIR}/SRC")
 target_chomp_sources(studio
-  "${PROJECT_SOURCE_DIR}/src/building/building.cht")
+  "${PROJECT_SOURCE_DIR}/SRC/STUDIO/UTEST.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/STUDIO/STUDIO.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/BUILDING/BLDGHD.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/BUILDING/BUILDING.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/HELPAUD/HELPAUD.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/HELP/HELP.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/SHARED/SHARED.CHT"
+  "${PROJECT_SOURCE_DIR}/SRC/SHARED/SHARECD.CHT")
 
 target_link_libraries(studio PRIVATE engine)
 set_property(TARGET studio PROPERTY OUTPUT_NAME 3dmovie)
