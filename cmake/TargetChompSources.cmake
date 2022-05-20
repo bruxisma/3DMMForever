@@ -13,7 +13,7 @@ function(target_chomp_sources target)
   >)
   string(CONCAT compile-definitions $<
     $<BOOL:${compile-definitions}>:
-    -I$<JOIN:$<REMOVE_DUPLICATES:${compile-definitions}>,$<SEMICOLON>-D>
+    -D$<JOIN:$<REMOVE_DUPLICATES:${compile-definitions}>,$<SEMICOLON>-D>
   >)
   foreach(source IN LISTS ARGN)
     cmake_path(GET source FILENAME filename)
@@ -32,8 +32,9 @@ function(target_chomp_sources target)
         "$<${is-msvc}:/nologo>"
         "$<${is-msvc}:/E>"
         "$<${is-msvc}:/TP>"
+        "-DNAMES"
         "${include-directories}"
-        "${compiler-definitions}"
+        "${compile-definitions}"
         "${source}" > "${processed}"
       IMPLICIT_DEPENDS CXX "${source}"
       MAIN_DEPENDENCY "${source}"
