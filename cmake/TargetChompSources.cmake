@@ -32,7 +32,6 @@ function(target_chomp_sources target)
         "$<${is-msvc}:/nologo>"
         "$<${is-msvc}:/E>"
         "$<${is-msvc}:/TP>"
-        "-DNAMES"
         "${include-directories}"
         "${compile-definitions}"
         "${source}" > "${processed}"
